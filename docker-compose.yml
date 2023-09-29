@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  postgres-db-1:
+    image: postgres
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_INITDB_ARGS="--max_prepared_transactions=100"
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_1:/var/lib/postgresql/data
+
+  postgres-db-2:
+    image: postgres
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_INITDB_ARGS="--max_prepared_transactions=100"
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_2:/var/lib/postgresql/data
+
+volumes:
+  postgres_1:
+    driver: local
+  postgres_2:
+    driver: local
