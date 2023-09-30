@@ -1,12 +1,12 @@
 from contextlib import contextmanager
-from sqlalchemy.orm import sessionmaker
-from db.one.models import User
-from db.two.models import Account
 
-from db.one.db_engine import engine as db_one_engine
-from db.two.db_engine import engine as db_two_engine
+from sqlalchemy.orm import sessionmaker
 
 import constants
+from db.one.db_engine import engine as db_one_engine
+from db.one.models import User
+from db.two.db_engine import engine as db_two_engine
+from db.two.models import Account
 
 
 @contextmanager
@@ -37,9 +37,14 @@ def with_session_logic():
 
 
 def create_users_context_manager_session():
-    with with_session_logic() as (_postgres_one_session, _postgres_two_session,):
+    with with_session_logic() as (
+        _postgres_one_session,
+        _postgres_two_session,
+    ):
         users = [User(name=f"PG#1_user_{n}") for n in range(constants.CREATE_USERS)]
-        accounts = [Account(name=f"PG#2_account_{n}") for n in range(constants.CREATE_ACCOUNTS)]
+        accounts = [
+            Account(name=f"PG#2_account_{n}") for n in range(constants.CREATE_ACCOUNTS)
+        ]
 
         _postgres_one_session.bulk_save_objects(users)
         _postgres_two_session.bulk_save_objects(accounts)

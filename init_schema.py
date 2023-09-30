@@ -6,10 +6,13 @@ from db.two.db_engine import engine as db_two_engine
 from db.two.models import Account
 from db.two.models_broken import BrokenAccount
 
-
 parser = argparse.ArgumentParser()
-parser.add_argument("-bs", "--break-schema", action="store_true",
-                    help="Break DB 2 schema",)
+parser.add_argument(
+    "-bs",
+    "--break-schema",
+    action="store_true",
+    help="Break DB 2 schema",
+)
 args = parser.parse_args()
 
 if __name__ == "__main__":
